@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .form-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .form-container input[type="text"],
+  .form-container input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .form-container input[type="radio"],
+  .form-container input[type="checkbox"] {
+    margin-right: 5px;
+  }
+
+  .form-container button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+
+  .form-container button:hover {
+    background-color: #0056b3;
+  }
+</style>
+<title>Formulário de Cadastro</title>
+</head>
+<body>
+<div class="form-container">
+  <h2>Formulário de Cadastro</h2>
+  <form>
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required>
+
+    <label for="cpf">CPF:</label>
+    <input type="number" id="cpf" name="cpf" required>
+
+    <label>Estado Civil:</label>
+    <label><input type="radio" name="estadoCivil" value="solteiro"> Solteiro</label>
+    <label><input type="radio" name="estadoCivil" value="casado"> Casado</label>
+    <label><input type="radio" name="estadoCivil" value="divorciado"> Divorciado</label>
+    <label><input type="radio" name="estadoCivil" value="viuvo"> Viúvo</label><br>
+
+    <label>Formação:</label>
+    <label><input type="checkbox" name="formacao[]" value="ensino-medio"> Ensino Médio</label>
+    <label><input type="checkbox" name="formacao[]" value="ensino-tecnico"> Ensino Tecnico</label>
+    <label><input type="checkbox" name="formacao[]" value="graduacao"> Graduação</label>
+    <label><input type="checkbox" name="formacao[]" value="pos-graduacao"> Pós-Graduação</label>
+    <label><input type="checkbox" name="formacao[]" value="mestrado"> Mestrado</label>
+    <label><input type="checkbox" name="formacao[]" value="doutorado"> Doutorado</label><br>
+
+    <label>Situação:</label>
+    <select name="situacao">
+      <option value="concluido">Concluido</option>
+      <option value="cursando">Cursando</option>
+      <option value="inclompleto">Inclompleto</option></label><br>
+
+   <button type="submit">Enviar</button>
+  </form>
+</div>
+</body>
+</html>
+
