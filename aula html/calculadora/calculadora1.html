@@ -1,0 +1,46 @@
+<!--calculadora -->
+<html>
+<head>
+    <title>Calculadora</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculadora">
+            <form action="index.php" method="post">
+                <input type="text" name="valor1" placeholder="Digite o primeiro valor">
+                <input type="text" name="valor2" placeholder="Digite o segundo valor">
+                <select name="operacao">
+                    <option value="soma">+</option>
+                    <option value="subtracao">-</option>
+                    <option value="multiplicacao">*</option>
+                    <option value="divisao">/</option>
+                </select>
+                <input type="submit" name="calcular" value="Calcular">
+            </form>
+            <?php
+                if(isset($_POST['calcular'])){
+                    $valor1 = $_POST['valor1'];
+                    $valor2 = $_POST['valor2'];
+                    $operacao = $_POST['operacao'];
+
+                    if($operacao == 'soma'){
+                        $resultado = $valor1 + $valor2;
+                    }elseif($operacao == 'subtracao'){
+                        $resultado = $valor1 - $valor2;
+                    }elseif($operacao == 'multiplicacao'){
+                        $resultado = $valor1 * $valor2;
+                    }elseif($operacao == 'divisao'){
+                        $resultado = $valor1 / $valor2;
+                    }
+                    echo "Resultado: $resultado";
+                }
+            php?>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
