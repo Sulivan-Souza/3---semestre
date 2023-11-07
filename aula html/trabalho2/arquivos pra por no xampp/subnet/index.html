@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Máscara de Sub-rede</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #resultado {
+            display: none;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        #erro {
+            color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Máscara de Sub-rede</h1>
+        <form id="subnet-calculator-form">
+            <label for="ip">Endereço IP:</label>
+            <input type="text" id="ip" name="ip" required>
+            <label for="mascara">Máscara de Sub-rede:</label>
+            <input type="text" id="mascara" name="mascara" required>
+            <input type="submit" value="Calcular">
+        </form>
+
+        <div id="resultado">
+            <h2>Resultado:</h2>
+            <p id="endereco-de-rede"></p>
+            <p id="endereco-de-broadcast"></p>
+            <p id="quantidade-de-hosts"></p>
+            <p id="faixa-de-ips"></p>
+        </div>
+
+        <p id="erro"></p>
+    </div>
+
+    <script>
+        document.getElementById("subnet-calculator-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const ipInput = document.getElementById("ip");
+            const mascaraInput = document.getElementById("mascara");
+            const resultadoDiv = document.getElementById("resultado");
+            const erroDiv = document.getElementById("erro");
+            const enderecoDeRedeParaExibir = document.getElementById("endereco-de-rede");
+            const enderecoDeBroadcastParaExibir = document.getElementById("endereco-de-broadcast");
+            const quantidadeDeHostsParaExibir = document.getElementById("quantidade-de-hosts");
+            const faixaDeIPsParaExibir = document.getElementById("faixa-de-ips");
+
+            const ip = ipInput.value;
+            const mascara = mascaraInput.value;
+
+            try {
+                const rede = ipaddress.IPv4Network(`${ip}/${mascara}`, { strict: false });
+                enderecoDeRedeParaExibir.textContent = `Endereço de Rede: ${rede.networkAddress.toString()}`;
+                enderecoDeBroadcastParaExibir.textContent = `Endereço de Broadcast: ${rede.broadcastAddress.toString()}`;
+                quantidadeDeHostsParaExibir.textContent = `Número de Hosts Possíveis: ${rede.numHosts.toString()}`;
+                faixaDeIPsParaExibir.textContent = `Faixa de IPs Disponíveis: ${rede.first + 1} - ${rede.last - 1}`;
+
+                resultadoDiv.style.display = "block";
+                erroDiv.textContent = "";
+            } catch (error) {
+                resultadoDiv.style.display = "none";
+                erroDiv.textContent = `Erro: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>
