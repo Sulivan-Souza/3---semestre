@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Ping</title>
+    <style>
+        /* Estilos CSS para a página */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('tracert1.jpg'); /* Substitua com a URL da sua imagem de fundo */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 70px;
+            background-color: rgba(255, 255, 255, 0.9); /* Adiciona transparência ao fundo */
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #333;
+        }
+
+        form {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px; /* Margem inferior para criar espaço entre os elementos */
+        }
+
+        /* Flexbox para alinhar o botão horizontalmente */
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 10px; /* Margem inferior para criar espaço entre os botões */
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #ping-results {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            text-align: left;
+        }
+
+        /* Estilos para a mensagem de "Aguardando resultado" */
+        #waiting-message {
+            display: none;
+            font-size: 20px;
+            color: #007bff;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teste de Ping</h1>
+        <form id="ping-form">
+            <label for="ip-address">Digite o endereço IP:</label>
+            <input type="text" id="ip-address" name="ip-address" required>
+            <button type="submit">Testar Ping</button>
+        </form>
+        <!-- Mensagem de "Aguardando resultado" -->
+        <div id="waiting-message" class="hidden">Aguardando resultado...</div>
+        <div id="ping-results" class="hidden"></div>
+    </div>
+
+    <script>
+        document.getElementById('ping-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const ipAddress = document.getElementById('ip-address').value;
+
+            // Exibir a mensagem "Aguardando resultado" enquanto o ping está sendo executado
+            document.getElementById('waiting-message').style.display = 'block';
+            document.getElementById('ping-results').style.display = 'none';
+
+            ping(ipAddress);
+        });
+
+        function ping(ipAddress) {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                const pingResults = document.getElementById('ping-results');
+                const waitingMessage = document.getElementById('waiting-message');
+                
+                // Esconder a mensagem "Aguardando resultado" e mostrar os resultados do ping
+                waitingMessage.style.display = 'none';
+                pingResults.style.display = 'block';
+
+                if (xhr.status === 200) {
+                    pingResults.textContent = xhr.responseText;
+                } else {
+                    pingResults.textContent = 'Erro ao testar o ping.';
+                }
+            };
+            xhr.open('GET', `/ping?ip=${ipAddress}`, true);
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
